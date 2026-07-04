@@ -1,0 +1,58 @@
+groups:
+  - name: gpu-worker-stack
+    rules:
+      - alert: RabbitMQDown
+        expr: up{job="rabbitmq"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: RabbitMQ is down
+
+      - alert: GamingPCDown
+        expr: up{job="gaming-pc-node"} == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Gaming PC node exporter is down
+
+      - alert: GPUWorkerDown
+        expr: up{job="gpu-worker"} == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: GPU worker metrics endpoint is down
+
+      - alert: GPUQueueBacklog
+        expr: rabbitmq_queue_messages_ready{queue=~"gpu\\.(whisper|embeddings|video)"} > 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: GPU job queue has pending messages
+
+      - alert: GPUDeadLetterMessages
+        expr: rabbitmq_queue_messages_ready{queue="gpu.dead"} > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: GPU dead-letter queue has messages
+
+      - alert: GPUTemperatureHigh
+        expr: nvidia_gpu_temperature_celsius > 83
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: GPU temperature is high
+
+      - alert: GPUMemoryNearlyFull
+        expr: nvidia_gpu_memory_used_mib / nvidia_gpu_memory_total_mib * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: GPU memory usage is above 90 percent

@@ -24,6 +24,8 @@ dist/
 build/
 __pycache__/
 *.pyc
+.venv/
+**/.venv/
 
 # Worker runtime data
 gpu-worker/jobs/
@@ -39,6 +41,11 @@ server/storage/
 server/*.db
 server/*.sqlite
 server/*.sqlite3
+server/test-project/live-audio.wav
+server/test-project/*.wav
+server/test-project/*.mp3
+server/test-project/*.ogg
+server/test-project/*.mp4
 
 # Local/editor files
 .DS_Store

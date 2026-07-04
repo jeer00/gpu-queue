@@ -1,0 +1,102 @@
+{
+  "users": [],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [],
+  "exchanges": [
+    {
+      "name": "gpu.jobs",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "gpu.dead",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "gpu.whisper",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "gpu.dead",
+        "x-dead-letter-routing-key": "gpu.dead"
+      }
+    },
+    {
+      "name": "gpu.embeddings",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "gpu.dead",
+        "x-dead-letter-routing-key": "gpu.dead"
+      }
+    },
+    {
+      "name": "gpu.video",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "gpu.dead",
+        "x-dead-letter-routing-key": "gpu.dead"
+      }
+    },
+    {
+      "name": "gpu.dead",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "gpu.jobs",
+      "vhost": "/",
+      "destination": "gpu.whisper",
+      "destination_type": "queue",
+      "routing_key": "whisper",
+      "arguments": {}
+    },
+    {
+      "source": "gpu.jobs",
+      "vhost": "/",
+      "destination": "gpu.embeddings",
+      "destination_type": "queue",
+      "routing_key": "embedding",
+      "arguments": {}
+    },
+    {
+      "source": "gpu.jobs",
+      "vhost": "/",
+      "destination": "gpu.video",
+      "destination_type": "queue",
+      "routing_key": "video",
+      "arguments": {}
+    },
+    {
+      "source": "gpu.dead",
+      "vhost": "/",
+      "destination": "gpu.dead",
+      "destination_type": "queue",
+      "routing_key": "gpu.dead",
+      "arguments": {}
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: GPU Worker Stack
+    orgId: 1
+    folder: GPU Worker
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards
