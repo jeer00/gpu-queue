@@ -1,0 +1,47 @@
+# Runtime environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+
+# Keys and certificates
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+
+# Build outputs
+bin/
+**/bin/
+dist/
+build/
+__pycache__/
+*.pyc
+
+# Worker runtime data
+gpu-worker/jobs/
+gpu-worker/*.log
+
+# Server runtime storage
+server/audio/
+server/text/
+server/video/
+server/results/
+server/data/
+server/storage/
+server/*.db
+server/*.sqlite
+server/*.sqlite3
+
+# Local/editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp

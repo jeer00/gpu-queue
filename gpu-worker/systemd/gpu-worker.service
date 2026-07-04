@@ -1,0 +1,15 @@
+[Unit]
+Description=RabbitMQ GPU worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/jeppe/Documents/Kod/gpu-worker
+EnvironmentFile=/home/jeppe/Documents/Kod/gpu-worker/.env
+ExecStart=/home/jeppe/Documents/Kod/gpu-worker/bin/gpu-worker
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

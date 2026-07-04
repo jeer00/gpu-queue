@@ -1,0 +1,15 @@
+[Unit]
+Description=RabbitMQ GPU embeddings worker
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/jeppe/Documents/Kod/gpu-worker
+EnvironmentFile=/home/jeppe/Documents/Kod/gpu-worker/.env.embeddings
+ExecStart=/home/jeppe/Documents/Kod/gpu-worker/bin/gpu-worker
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
